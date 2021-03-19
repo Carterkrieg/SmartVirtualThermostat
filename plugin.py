@@ -107,6 +107,7 @@ class BasePlugin:
         self.loglevel = None
         self.statussupported = True
         self.intemperror = False
+	self.deltathermostaticvalve = 1.5 # time to open the valve head
         return
 
 
@@ -368,7 +369,7 @@ class BasePlugin:
             self.switchHeat(False)
             Domoticz.Debug("No heating requested !")
         else:
-            self.endheat = datetime.now() + timedelta(minutes=heatduration)
+            self.endheat = datetime.now() + timedelta(minutes=heatduration) + self.deltathermostaticvalve
             Domoticz.Debug("End Heat time = " + str(self.endheat))
             self.switchHeat(True)
             if self.Internals["ALStatus"] < 2:
